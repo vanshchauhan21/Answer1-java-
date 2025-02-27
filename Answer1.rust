@@ -1,0 +1,34 @@
+fn hide_and_seek(items: &[&str], target: &str) -> Option<usize> {
+    for (index, item) in items.iter().enumerate() {
+        if item == &target {
+            return Some(index);
+        }
+    }
+    None
+}
+
+fn hide_and_seek_alpha(items: &[&str], target: &str) -> Option<usize> {
+    let target_lowercase = target.to_lowercase();
+    for (index, &item) in items.iter().enumerate() {
+        if item.to_lowercase() == target_lowercase {
+            return Some(index);
+        }
+    }
+    None
+}
+
+fn main() {
+    let my_items = ["apple", "banana", "cherry"];
+
+    for &item in &my_items {
+        match hide_and_seek(&my_items, item) {
+            Some(index) => println!("Index of {}: {}", item, index),
+            None => println!("{} not found", item),
+        }
+    }
+
+    match hide_and_seek_alpha(&my_items, "BaNaNa") {
+        Some(index) => println!("Index of banana (case-insensitive): {}", index),
+        None => println!("banana not found"),
+    }
+}
